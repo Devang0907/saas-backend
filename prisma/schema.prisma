@@ -16,7 +16,7 @@ datasource db {
 
 model Metric {
   id           Int      @id @default(autoincrement())
-  hostname     String
+  hostname     String   @unique
   cpu_load     Float
   memory_used  BigInt
   memory_total BigInt

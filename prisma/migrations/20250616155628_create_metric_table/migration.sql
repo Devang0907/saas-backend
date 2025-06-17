@@ -1,7 +1,7 @@
 -- CreateTable
 CREATE TABLE "Metric" (
     "id" SERIAL NOT NULL,
-    "hostname" TEXT NOT NULL,
+    "hostname" TEXT NOT NULL UNIQUE,
     "cpu_load" DOUBLE PRECISION NOT NULL,
     "memory_used" BIGINT NOT NULL,
     "memory_total" BIGINT NOT NULL,

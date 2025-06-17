@@ -46,4 +46,20 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.get('/:hostname', async (req, res) => {
+  try {
+    const { hostname } = req.params;
+    const metric = await prisma.metric.findFirst({
+      where: { hostname },
+      orderBy: { createdAt: 'desc' },
+    });
+    if (!metric) {
+      return res.status(404).json({ error: 'Metric not found' });
+    }
+    res.status(200).json(metric);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
 export default router;
