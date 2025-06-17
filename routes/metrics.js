@@ -18,8 +18,18 @@ const metricSchema = z.object({
 router.post('/', async (req, res) => {
   try {
     const data = metricSchema.parse(req.body);
-    await prisma.metric.create({
-      data: {
+    await prisma.metric.upsert({
+      where: { hostname: data.hostname },
+      update: {
+        cpu_load: data.cpuLoad,
+        memory_used: data.memoryUsed,
+        memory_total: data.memoryTotal,
+        disk_used: data.diskUsed,
+        disk_total: data.diskTotal,
+        net_rx: data.netRx,
+        net_tx: data.netTx,
+      },
+      create: {
         hostname: data.hostname,
         cpu_load: data.cpuLoad,
         memory_used: data.memoryUsed,
